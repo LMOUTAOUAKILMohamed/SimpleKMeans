@@ -12,8 +12,7 @@ class SimpleKMeans:
     def init_random_centroids(self, X):
         centroids = np.empty([self.k, X.shape[1]])
         for cluster_index in range(self.k):
-            random_index = random.randint(0, self.k - 1)
-            centroids[cluster_index] = X[random_index].copy()
+            centroids[cluster_index] = X[cluster_index].copy()
         return centroids
     
     def init_clusters(self):
@@ -70,3 +69,9 @@ class SimpleKMeans:
                 break
         self.n_iterations = iteration + 1
         return self
+    
+    def predict(self, X):
+        classified_points = []
+        for point in X:
+            classified_points.append(self.nearest_centroid(point))
+        return classified_points
